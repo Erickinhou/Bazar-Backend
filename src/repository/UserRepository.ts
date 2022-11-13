@@ -7,4 +7,8 @@ export class UserRepository extends Repository<User> {
     const dataSource = AppDataSource;
     super(User, dataSource.createEntityManager());
   }
+
+  checkIfUserAlreadyExists(email: string) {
+    return Boolean(this.findOne({ where: { email } }));
+  }
 }

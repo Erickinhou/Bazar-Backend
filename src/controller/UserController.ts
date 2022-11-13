@@ -9,7 +9,7 @@ export class UserController {
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
-    return this.userRepository.findOne(request.params.id);
+    return this.userRepository.findOne({ where: { id: request.params.id } });
   }
 
   async save(request: Request, response: Response, next: NextFunction) {

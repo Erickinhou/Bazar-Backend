@@ -24,11 +24,13 @@ AppDataSource.initialize()
             next
           );
           if (result instanceof Promise) {
-            result.then((result) =>
-              result !== null && result !== undefined
-                ? res.json(result)
-                : undefined
-            );
+            result
+              .then((result) =>
+                result !== null && result !== undefined
+                  ? res.json(result)
+                  : undefined
+              )
+              .catch((err) => res.status(err.statusCode ?? 500).json(err));
           } else if (result !== null && result !== undefined) {
             res.json(result);
           }
