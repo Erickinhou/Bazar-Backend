@@ -13,15 +13,22 @@ export class AuthController {
 
   async signIn(request: Request, response: Response, next: NextFunction) {
     const { email, password }: SignInBody = request.body;
-    if (email && password) throw new ExpressError("unauthorized", 401);
+    if (!email && !password)
+      throw new ExpressError("Os campos precisam estar preenchidos", 400);
+    const userData = await this.userRepository.findOne({
+      where: { email, password },
+    });
+    if (!userData) throw new ExpressError("Email ou senha invalidos", 400);
 
-    return this.userRepository.find({ where: { email, password } });
+    return userData;
   }
 
   async signUp(request: Request, response: Response, next: NextFunction) {
     const userData: User = request.body;
-    if (this.userRepository.checkIfUserAlreadyExists(userData.email))
+
+    if (await this.userRepository.checkIfUserAlreadyExists(userData.email)) {
       throw new ExpressError("User Already Exists", 400);
+    }
 
     return this.userRepository.save(userData);
   }
