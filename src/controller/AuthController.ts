@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { UserRepository } from "@repository/UserRepository";
 import { ExpressError } from "utils/ExpressError";
-import { User } from "@entity/User";
+import { UserValidation } from "validation/UserValidation";
+import { validateOrReject } from "class-validator";
 
 interface SignInBody {
   email: string;
@@ -24,7 +25,8 @@ export class AuthController {
   }
 
   async signUp(request: Request, response: Response, next: NextFunction) {
-    const userData: User = request.body;
+    const userData = new UserValidation(request.body);
+    await validateOrReject(userData);
 
     if (await this.userRepository.checkIfUserAlreadyExists(userData.email)) {
       throw new ExpressError("User Already Exists", 400);

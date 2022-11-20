@@ -30,7 +30,9 @@ AppDataSource.initialize()
                   ? res.json(result)
                   : undefined
               )
-              .catch((err) => res.status(err.statusCode ?? 500).json(err));
+              .catch((err) => {
+                return res.status(err.statusCode ?? 500).json(err);
+              });
           } else if (result !== null && result !== undefined) {
             res.json(result);
           }
