@@ -12,7 +12,7 @@ services:
       - MYSQL_ROOT_PASSWORD=example
       - MYSQL_USER=bazar
       - MYSQL_PASSWORD=bazar_pass
-      - MYSQL_ROOT_HOST='%'
+      - MYSQL_ROOT_HOST=%
     ports:
       - "3306:3306"
     volumes:
