@@ -1,4 +1,6 @@
 import { AuthController } from "@controller/AuthController";
+import { CategoryController } from "@controller/CategoryController";
+import { ProductController } from "@controller/ProductController";
 import { UserController } from "@controller/UserController";
 
 const userRoutes = [
@@ -10,19 +12,19 @@ const userRoutes = [
   },
   {
     method: "get",
-    route: "/users/:id",
+    route: "/user/:id",
     controller: UserController,
     action: "one",
   },
   {
     method: "post",
-    route: "/users",
+    route: "/user",
     controller: UserController,
     action: "save",
   },
   {
     method: "delete",
-    route: "/users/:id",
+    route: "/user/:id",
     controller: UserController,
     action: "remove",
   },
@@ -43,4 +45,63 @@ const authRoutes = [
   },
 ];
 
-export const Routes = [...userRoutes, ...authRoutes];
+const productRoutes = [
+  {
+    method: "get",
+    route: "/products",
+    controller: ProductController,
+    action: "all",
+  },
+  {
+    method: "get",
+    route: "/product/:id",
+    controller: ProductController,
+    action: "one",
+  },
+  {
+    method: "post",
+    route: "/product",
+    controller: ProductController,
+    action: "save",
+  },
+  {
+    method: "delete",
+    route: "/product/:id",
+    controller: ProductController,
+    action: "remove",
+  },
+];
+
+const categoryRoutes = [
+  {
+    method: "get",
+    route: "/categories",
+    controller: CategoryController,
+    action: "all",
+  },
+  {
+    method: "get",
+    route: "/category/:id",
+    controller: CategoryController,
+    action: "one",
+  },
+  {
+    method: "post",
+    route: "/category",
+    controller: CategoryController,
+    action: "save",
+  },
+  {
+    method: "delete",
+    route: "/category/:id",
+    controller: CategoryController,
+    action: "remove",
+  },
+];
+
+export const Routes = [
+  ...userRoutes,
+  ...authRoutes,
+  ...productRoutes,
+  ...categoryRoutes,
+];

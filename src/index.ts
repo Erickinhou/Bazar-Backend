@@ -28,13 +28,15 @@ AppDataSource.initialize()
               .then((result) =>
                 result !== null && result !== undefined
                   ? res.json(result)
-                  : undefined
+                  : res.status(204).send()
               )
               .catch((err) => {
                 return res.status(err.statusCode ?? 500).json(err);
               });
-          } else if (result !== null && result !== undefined) {
-            res.json(result);
+          } else {
+            if (result !== null && result !== undefined) {
+              return res.json(result);
+            }
           }
         }
       );

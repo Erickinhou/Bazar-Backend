@@ -10,7 +10,11 @@ interface SignInBody {
 }
 
 export class AuthController {
-  private userRepository = new UserRepository();
+  private userRepository;
+
+  constructor() {
+    this.userRepository = new UserRepository();
+  }
 
   async signIn(request: Request, response: Response, next: NextFunction) {
     const { email, password }: SignInBody = request.body;
