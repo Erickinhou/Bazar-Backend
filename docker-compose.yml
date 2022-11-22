@@ -10,8 +10,9 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: example
-      MYSQL_USER: homestead
-      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: bazar
+      MYSQL_USER: bazar_user
+      MYSQL_PASSWORD: example
       MYSQL_ROOT_HOST: "%"
     ports:
       - "3306:3306"

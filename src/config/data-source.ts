@@ -6,7 +6,7 @@ export const AppDataSource = new DataSource({
   host: "localhost",
   port: 3306,
   username: "root",
-  password: "mauFJcuf5dhRMQrjj",
+  password: "example",
   database: "bazar",
   synchronize: true,
   logging: false,
