@@ -1,8 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { UserRepository } from "@repository/UserRepository";
+import { ExpressError } from "utils/ExpressError";
 
 export class UserController {
-  private userRepository = new UserRepository();
+  private userRepository: UserRepository;
+
+  constructor() {
+    this.userRepository = new UserRepository();
+  }
 
   async all(request: Request, response: Response, next: NextFunction) {
     return this.userRepository.find();
@@ -17,9 +22,13 @@ export class UserController {
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {
-    let userToRemove = await this.userRepository.findOneBy({
+    const userToRemove = await this.userRepository.findOneBy({
       id: request.params.id,
     });
+    if (!userToRemove) throw new ExpressError("User not found", 404);
+
     await this.userRepository.remove(userToRemove);
+
+    return response.send().status(204);
   }
 }
