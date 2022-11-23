@@ -14,7 +14,7 @@ AppDataSource.initialize()
     app.use(bodyParser.json());
 
     app.get("/", (req: Request, res: Response) =>
-      res.json({ name: "Bazar-Api", version: "v0.0.1" })
+      res.json({ name: "Bazar-Api", version: "v0.0.2" })
     );
 
     // register express routes from defined application routes
