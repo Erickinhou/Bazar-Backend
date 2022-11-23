@@ -13,6 +13,10 @@ AppDataSource.initialize()
     const app = express();
     app.use(bodyParser.json());
 
+    app.get("/", (req: Request, res: Response) =>
+      res.json({ name: "Bazar-Api", version: "v0.0.1" })
+    );
+
     // register express routes from defined application routes
     Routes.forEach((route) => {
       (app as any)[route.method](
