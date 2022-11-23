@@ -19,6 +19,7 @@ export class ProductController {
   constructor() {
     this.productRepository = new ProductRepository();
     this.jsonConverter = new JsonConverter();
+    this.categoryRepository = new CategoryRepository();
   }
 
   async all(request: Request, response: Response, next: NextFunction) {
