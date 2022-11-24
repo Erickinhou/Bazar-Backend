@@ -26,15 +26,15 @@ export class ProductController {
     if (filter) {
       const data = await this.productRepository.findWithFilter(filter);
       console.log("filter data ->", data);
-      console.log("filter data ->", filter);
+      console.log("filter ->", filter);
 
-      return;
+      return data;
     }
     const products = await this.productRepository.find();
     console.log("products without filter -> ", products);
     console.log("without filter -> ", filter);
 
-    return;
+    return products;
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
