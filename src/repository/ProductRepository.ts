@@ -10,11 +10,16 @@ export class ProductRepository extends Repository<Product> {
   }
 
   async findWithFilter({ categoryId, searchTerm }: Filter) {
+    console.log("categoryId ->", categoryId);
     const categoryFilter = categoryId ? { category: { id: categoryId } } : {};
     const searchFilter = searchTerm ? { title: Like(`%${searchTerm}%`) } : {};
     const where = { ...categoryFilter, ...searchFilter };
-    return await this.find({
+    console.log("result ->", where);
+    const result = await this.find({
       where,
     });
+    console.log("result ->", result);
+
+    return result;
   }
 }
