@@ -9,6 +9,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
+    "noImplicitAny": true,
     "paths": {
       "@config/*": ["config/*"],
       "@controller/*": ["controller/*"],

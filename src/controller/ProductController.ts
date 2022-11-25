@@ -4,6 +4,7 @@ import { CategoryRepository } from "@repository/CategoryRepository";
 import { ProductValidation } from "validation/ProductValidation";
 import { validateOrReject } from "class-validator";
 import { ExpressError } from "utils/ExpressError";
+import { JsonConverter } from "utils/JsonConverter";
 
 export interface Filter {
   categoryId?: string;
@@ -13,28 +14,26 @@ export interface Filter {
 export class ProductController {
   private productRepository: ProductRepository;
   private categoryRepository: CategoryRepository;
+  private jsonConverter: JsonConverter;
 
   constructor() {
     this.productRepository = new ProductRepository();
     this.categoryRepository = new CategoryRepository();
+    this.jsonConverter = new JsonConverter();
   }
 
   async all(request: Request, response: Response, next: NextFunction) {
     const query = request.query;
-    const filter = query?.filter as Filter;
 
-    if (filter) {
-      const data = await this.productRepository.findWithFilter(filter);
-      console.log("filter data ->", data);
-      console.log("filter ->", filter);
-
-      return data;
+    if (query?.filter) {
+      const filter =
+        typeof query?.filter === "string"
+          ? this.jsonConverter.convertJsonToObject<Filter>(query?.filter)
+          : (query?.filter as Filter);
+      return await this.productRepository.findWithFilter(filter);
     }
-    const products = await this.productRepository.find();
-    console.log("products without filter -> ", products);
-    console.log("without filter -> ", filter);
 
-    return products;
+    return await this.productRepository.find();
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
