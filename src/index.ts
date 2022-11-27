@@ -56,7 +56,7 @@ AppDataSource.initialize()
 
     await AppDataSource.manager.save(
       AppDataSource.manager.create(User, {
-        id: "123",
+        id: "11a39c34-0107-4499-8037-3b3ea6d5d359",
         cpf: "16494284703",
         email: "willianerick@gmail.com",
         name: "Erick",
