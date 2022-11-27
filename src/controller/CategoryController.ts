@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import { CategoryRepository } from "@repository/CategoryRepository";
-import { CategoryValidation } from "validation/CategoryValidation";
 import { ExpressError } from "utils/ExpressError";
+import { validateOrReject } from "class-validator";
 
 export class CategoryController {
-  private categoryRepository;
+  private categoryRepository: CategoryRepository;
 
   constructor() {
     this.categoryRepository = new CategoryRepository();
@@ -21,8 +21,10 @@ export class CategoryController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const body = new CategoryValidation(request.body);
-    return await this.categoryRepository.save(body);
+    const body = request.body;
+    const category = this.categoryRepository.create(body);
+    await validateOrReject(category);
+    return await this.categoryRepository.save(category);
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {

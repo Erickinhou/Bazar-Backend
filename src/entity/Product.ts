@@ -1,3 +1,4 @@
+import { IsArray, IsOptional, IsString } from "class-validator";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -5,7 +6,6 @@ import {
   UpdateDateColumn,
   CreateDateColumn,
   ManyToOne,
-  JoinTable,
 } from "typeorm";
 import { Category } from "./Category";
 
@@ -14,21 +14,30 @@ export class Product {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @IsString()
   @Column()
   title: string;
 
+  @IsString()
   @Column("text")
   description: string;
 
+  @IsArray()
+  @IsOptional()
   @Column("simple-array")
   images: string;
 
+  @IsString()
   @Column()
   price: string;
 
+  @IsArray()
+  @IsOptional()
   @Column({ nullable: true, type: "simple-array" })
   color: string[];
 
+  @IsArray()
+  @IsOptional()
   @Column({ nullable: true, type: "simple-array" })
   size: string[];
 
@@ -39,6 +48,5 @@ export class Product {
   createdDate: Date;
 
   @ManyToOne(() => Category, (category) => category.product)
-  @JoinTable()
   category: Category;
 }

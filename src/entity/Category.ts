@@ -1,3 +1,4 @@
+import { IsString } from "class-validator";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -13,9 +14,11 @@ export class Category {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
+  @IsString()
   @Column()
   title: string;
 
+  @IsString()
   @Column()
   description: string;
 
@@ -26,7 +29,7 @@ export class Category {
   createdDate: Date;
 
   @OneToMany(() => Product, (product) => product.category, {
-    onDelete: "CASCADE",
+    cascade: true,
   })
   product: Product[];
 }

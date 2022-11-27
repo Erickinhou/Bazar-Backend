@@ -1,9 +1,14 @@
+import { ParsedQs } from "qs";
 export class JsonConverter {
-  public convertJsonToObject<T>(Json: string) {
+  public convertJsonToObject<T>(
+    Json: string | ParsedQs | string[] | ParsedQs[]
+  ) {
     try {
-      return JSON.parse(Json) as T;
+      console.log("Json ->", Json);
+
+      return typeof Json === "string" ? (JSON.parse(Json) as T) : (Json as T);
     } catch (err) {
-      return;
+      console.error("Error converting Json");
     }
   }
 }

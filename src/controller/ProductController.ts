@@ -1,14 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { ProductRepository } from "@repository/ProductRepository";
 import { CategoryRepository } from "@repository/CategoryRepository";
-import { ProductValidation } from "validation/ProductValidation";
 import { validateOrReject } from "class-validator";
 import { ExpressError } from "utils/ExpressError";
 import { JsonConverter } from "utils/JsonConverter";
 
 export interface Filter {
   categoryId?: string;
-  searchTerm?: string;
+  search?: string;
 }
 
 export class ProductController {
@@ -26,10 +25,9 @@ export class ProductController {
     const query = request.query;
 
     if (query?.filter) {
-      const filter =
-        typeof query?.filter === "string"
-          ? this.jsonConverter.convertJsonToObject<Filter>(query?.filter)
-          : (query?.filter as Filter);
+      const filter = this.jsonConverter.convertJsonToObject<Filter>(
+        query?.filter
+      );
       return await this.productRepository.findWithFilter(filter);
     }
 
@@ -41,18 +39,17 @@ export class ProductController {
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
-    const body = new ProductValidation(request.body);
+    const { categoryId, ...productData } = request.body;
 
-    await validateOrReject(body);
+    const product = this.productRepository.create(productData);
+
+    await validateOrReject(product);
 
     const category = await this.categoryRepository.findOneBy({
-      id: body.categoryId,
+      id: categoryId,
     });
 
-    delete body.categoryId;
-    const product = { ...body, category };
-
-    return await this.productRepository.save(product);
+    return await this.productRepository.save({ ...product, category });
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {

@@ -9,9 +9,9 @@ export class ProductRepository extends Repository<Product> {
     super(Product, dataSource.createEntityManager());
   }
 
-  async findWithFilter({ categoryId, searchTerm }: Filter) {
+  async findWithFilter({ categoryId, search }: Filter) {
     const categoryFilter = categoryId ? { category: { id: categoryId } } : {};
-    const searchFilter = searchTerm ? { title: Like(`%${searchTerm}%`) } : {};
+    const searchFilter = search ? { title: Like(`%${search}%`) } : {};
     const where = { ...categoryFilter, ...searchFilter };
 
     return await this.find({

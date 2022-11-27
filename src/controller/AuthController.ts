@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { UserRepository } from "@repository/UserRepository";
 import { ExpressError } from "utils/ExpressError";
-import { UserValidation } from "validation/UserValidation";
 import { validateOrReject } from "class-validator";
 
 interface SignInBody {
@@ -10,7 +9,7 @@ interface SignInBody {
 }
 
 export class AuthController {
-  private userRepository;
+  private userRepository: UserRepository;
 
   constructor() {
     this.userRepository = new UserRepository();
@@ -29,12 +28,14 @@ export class AuthController {
   }
 
   async signUp(request: Request, response: Response, next: NextFunction) {
-    const userData = new UserValidation(request.body);
-    await validateOrReject(userData);
+    const { body } = request;
 
-    if (await this.userRepository.checkIfUserAlreadyExists(userData.email)) {
+    if (await this.userRepository.checkIfUserAlreadyExists(body.email)) {
       throw new ExpressError("User Already Exists", 400);
     }
+
+    const userData = this.userRepository.create(request.body);
+    await validateOrReject(userData);
 
     return this.userRepository.save(userData);
   }
