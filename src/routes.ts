@@ -4,6 +4,7 @@ import { CategoryController } from "@controller/CategoryController";
 import { ProductController } from "@controller/ProductController";
 import { UserController } from "@controller/UserController";
 import { OrderProductController } from "@controller/OrderProductController";
+import { AddressController } from "@controller/AddressController";
 
 const userRoutes = [
   {
@@ -28,6 +29,33 @@ const userRoutes = [
     method: "delete",
     route: "/user/:id",
     controller: UserController,
+    action: "remove",
+  },
+];
+
+const addressRoutes = [
+  {
+    method: "get",
+    route: "/addresses",
+    controller: AddressController,
+    action: "all",
+  },
+  {
+    method: "get",
+    route: "/address/:id",
+    controller: AddressController,
+    action: "one",
+  },
+  {
+    method: "post",
+    route: "/address",
+    controller: AddressController,
+    action: "save",
+  },
+  {
+    method: "delete",
+    route: "/address/:id",
+    controller: AddressController,
     action: "remove",
   },
 ];
@@ -157,6 +185,7 @@ const orderProductRoutes = [
 
 export const Routes = [
   ...userRoutes,
+  ...addressRoutes,
   ...authRoutes,
   ...productRoutes,
   ...categoryRoutes,
