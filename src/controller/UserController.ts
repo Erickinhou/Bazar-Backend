@@ -28,5 +28,6 @@ export class UserController {
     if (!userToRemove) throw new ExpressError("Usuário não encontrado", 404);
 
     await this.userRepository.remove(userToRemove);
+    await response.status(204).send();
   }
 }

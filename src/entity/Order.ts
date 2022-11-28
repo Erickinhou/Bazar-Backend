@@ -6,7 +6,9 @@ import {
   CreateDateColumn,
   ManyToOne,
   Column,
+  OneToMany,
 } from "typeorm";
+import { OrderProduct } from "./OrderProduct";
 import { User } from "./User";
 
 export enum PaymentMethod {
@@ -23,9 +25,6 @@ export enum OrderStatus {
 export class Order {
   @PrimaryGeneratedColumn("uuid")
   id: string;
-
-  @ManyToOne(() => User, { cascade: true, onDelete: "CASCADE" })
-  user: User;
 
   @Column({ type: "enum", enum: ["pix", "local"], default: "pix" })
   @IsEnum(["pix", "local"])
@@ -44,4 +43,10 @@ export class Order {
 
   @CreateDateColumn()
   createdDate: Date;
+
+  @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.order)
+  orderProduct: OrderProduct[];
+
+  @ManyToOne(() => User, { cascade: true, onDelete: "CASCADE" })
+  user: User;
 }

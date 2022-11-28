@@ -55,5 +55,6 @@ export class ProductController {
     if (!productToRemove) throw new ExpressError("Produto não encontrado", 404);
 
     await this.productRepository.remove(productToRemove);
+    await response.status(204).send();
   }
 }

@@ -5,6 +5,7 @@ import { ProductController } from "@controller/ProductController";
 import { UserController } from "@controller/UserController";
 import { OrderProductController } from "@controller/OrderProductController";
 import { AddressController } from "@controller/AddressController";
+import { ReportController } from "@controller/ReportController";
 
 const userRoutes = [
   {
@@ -183,6 +184,21 @@ const orderProductRoutes = [
   },
 ];
 
+const reportRoutes = [
+  {
+    method: "get",
+    route: "/report/users",
+    controller: ReportController,
+    action: "users",
+  },
+  {
+    method: "get",
+    route: "/report/orders",
+    controller: ReportController,
+    action: "orders",
+  },
+];
+
 export const Routes = [
   ...userRoutes,
   ...addressRoutes,
@@ -191,4 +207,5 @@ export const Routes = [
   ...categoryRoutes,
   ...orderRoutes,
   ...orderProductRoutes,
+  ...reportRoutes,
 ];

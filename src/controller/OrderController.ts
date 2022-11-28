@@ -68,5 +68,6 @@ export class OrderController {
     if (!orderToRemove) throw new ExpressError("Pedido não encontrada", 404);
 
     await this.orderRepository.remove(orderToRemove);
+    await response.status(204).send();
   }
 }

@@ -392,6 +392,11 @@ debug@^4.3.3:
   dependencies:
     ms "2.1.2"
 
+deeks@2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/deeks/-/deeks-2.6.0.tgz#62d052aee1fc3efbd15d1bfcb98f54cbe420d807"
+  integrity sha512-zu/g4fVjPreYuP11f3o5W7TeSRscpnn9LQO15lxIXu66MwOopIxj4jhLDEGMW7JkZYqWEz5JG3qs88kHNMY08g==
+
 denque@^2.0.1:
   version "2.1.0"
   resolved "https://registry.npmjs.org/denque/-/denque-2.1.0.tgz"
@@ -411,6 +416,11 @@ diff@^4.0.1:
   version "4.0.2"
   resolved "https://registry.npmjs.org/diff/-/diff-4.0.2.tgz"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
+
+doc-path@3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/doc-path/-/doc-path-3.0.6.tgz#b7dfa6ee649e5b8a554be03333bdddcd38fcbd69"
+  integrity sha512-fUNXXk+4MbfKkXec41cIyD5DTPISVD0MzMPWX2qz+kL7otFtQRHCkyPaD8qmLyQpfYQWye/z7oXeeD0nQp8HYQ==
 
 dotenv@^16.0.0:
   version "16.0.3"
@@ -689,6 +699,14 @@ js-yaml@^4.1.0:
   integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
   dependencies:
     argparse "^2.0.1"
+
+json-2-csv@^3.18.0:
+  version "3.18.0"
+  resolved "https://registry.yarnpkg.com/json-2-csv/-/json-2-csv-3.18.0.tgz#2752e244ae2661a23f78d4f25c90ba54bd7219e3"
+  integrity sha512-+1lxMDaIx71QWVaENrphLb+o9xUY34nxVW6dKiRzFM2YYyxFbIkKNn4J3oVEOn/xxNtkmg8XVGmpZT+wIoi5xw==
+  dependencies:
+    deeks "2.6.0"
+    doc-path "3.0.6"
 
 json5@^2.2.1:
   version "2.2.1"

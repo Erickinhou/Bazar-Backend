@@ -44,5 +44,6 @@ export class AddressController {
       throw new ExpressError("Endereco não encontrado", 404);
 
     await this.addressRepository.remove(addressToRemove);
+    await response.status(204).send();
   }
 }

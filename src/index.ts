@@ -29,10 +29,9 @@ AppDataSource.initialize()
           );
           if (result instanceof Promise) {
             result
-              .then((result) =>
-                result !== null && result !== undefined
-                  ? res.json(result)
-                  : res.status(204).send()
+              .then(
+                (result) =>
+                  result !== null && result !== undefined && res.json(result)
               )
               .catch((err) => {
                 return res.status(err.statusCode ?? 500).json(err);

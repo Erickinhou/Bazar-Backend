@@ -36,5 +36,6 @@ export class CategoryController {
       throw new ExpressError("Catergoria não encontrada", 404);
 
     await this.categoryRepository.remove(categoryToRemove);
+    await response.status(204).send();
   }
 }
