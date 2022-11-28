@@ -1,7 +1,9 @@
 import { AuthController } from "@controller/AuthController";
+import { OrderController } from "@controller/OrderController";
 import { CategoryController } from "@controller/CategoryController";
 import { ProductController } from "@controller/ProductController";
 import { UserController } from "@controller/UserController";
+import { OrderProductController } from "@controller/OrderProductController";
 
 const userRoutes = [
   {
@@ -99,9 +101,65 @@ const categoryRoutes = [
   },
 ];
 
+const orderRoutes = [
+  {
+    method: "get",
+    route: "/orders",
+    controller: OrderController,
+    action: "all",
+  },
+  {
+    method: "get",
+    route: "/order/:id",
+    controller: OrderController,
+    action: "one",
+  },
+  {
+    method: "post",
+    route: "/order",
+    controller: OrderController,
+    action: "save",
+  },
+  {
+    method: "put",
+    route: "/order/:id",
+    controller: OrderController,
+    action: "update",
+  },
+  {
+    method: "delete",
+    route: "/order/:id",
+    controller: OrderController,
+    action: "remove",
+  },
+];
+
+const orderProductRoutes = [
+  {
+    method: "get",
+    route: "/orderProducts",
+    controller: OrderProductController,
+    action: "all",
+  },
+  {
+    method: "get",
+    route: "/orderProducts/:id",
+    controller: OrderProductController,
+    action: "one",
+  },
+  {
+    method: "post",
+    route: "/orderProducts",
+    controller: OrderProductController,
+    action: "save",
+  },
+];
+
 export const Routes = [
   ...userRoutes,
   ...authRoutes,
   ...productRoutes,
   ...categoryRoutes,
+  ...orderRoutes,
+  ...orderProductRoutes,
 ];

@@ -1,14 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { ProductRepository } from "@repository/ProductRepository";
+import { Filter, ProductRepository } from "@repository/ProductRepository";
 import { CategoryRepository } from "@repository/CategoryRepository";
 import { validateOrReject } from "class-validator";
 import { ExpressError } from "utils/ExpressError";
 import { JsonConverter } from "utils/JsonConverter";
-
-export interface Filter {
-  categoryId?: string;
-  search?: string;
-}
 
 export class ProductController {
   private productRepository: ProductRepository;
@@ -57,7 +52,7 @@ export class ProductController {
       id: request.params.id,
     });
 
-    if (!productToRemove) throw new ExpressError("Product not found", 404);
+    if (!productToRemove) throw new ExpressError("Produto não encontrado", 404);
 
     await this.productRepository.remove(productToRemove);
   }

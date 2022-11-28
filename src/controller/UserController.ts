@@ -25,7 +25,7 @@ export class UserController {
     const userToRemove = await this.userRepository.findOneBy({
       id: request.params.id,
     });
-    if (!userToRemove) throw new ExpressError("User not found", 404);
+    if (!userToRemove) throw new ExpressError("Usuário não encontrado", 404);
 
     await this.userRepository.remove(userToRemove);
   }

@@ -31,7 +31,7 @@ export class AuthController {
     const { body } = request;
 
     if (await this.userRepository.checkIfUserAlreadyExists(body.email)) {
-      throw new ExpressError("User Already Exists", 400);
+      throw new ExpressError("Usuário já existe", 400);
     }
 
     const userData = this.userRepository.create(request.body);

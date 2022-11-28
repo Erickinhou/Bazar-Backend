@@ -32,7 +32,8 @@ export class CategoryController {
       id: request.params.id,
     });
 
-    if (!categoryToRemove) throw new ExpressError("Category not found", 404);
+    if (!categoryToRemove)
+      throw new ExpressError("Catergoria não encontrada", 404);
 
     await this.categoryRepository.remove(categoryToRemove);
   }
