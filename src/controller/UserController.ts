@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from "express";
 import { UserRepository } from "@repository/UserRepository";
 import { ExpressError } from "utils/ExpressError";
+import { validateOrReject } from "class-validator";
+import { User } from "@entity/User";
 
 export class UserController {
   private userRepository: UserRepository;
@@ -15,6 +17,18 @@ export class UserController {
 
   async one(request: Request, response: Response, next: NextFunction) {
     return this.userRepository.findOne({ where: { id: request.params.id } });
+  }
+
+  async update(request: Request, response: Response, next: NextFunction) {
+    const id = request.params.id;
+    const userData: User = request.body;
+
+    const user = this.userRepository.create(userData);
+    await validateOrReject(user);
+    return await this.userRepository.save({
+      id,
+      ...user,
+    });
   }
 
   async save(request: Request, response: Response, next: NextFunction) {

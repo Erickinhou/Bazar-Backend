@@ -27,6 +27,12 @@ const userRoutes = [
     action: "save",
   },
   {
+    method: "put",
+    route: "/user/:id",
+    controller: UserController,
+    action: "update",
+  },
+  {
     method: "delete",
     route: "/user/:id",
     controller: UserController,
