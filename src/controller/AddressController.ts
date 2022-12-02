@@ -3,6 +3,7 @@ import { AddressRepository, Filter } from "@repository/AddressRepository";
 import { ExpressError } from "utils/ExpressError";
 import { JsonConverter } from "utils/JsonConverter";
 import { validateOrReject } from "class-validator";
+import { Address } from "@entity/Address";
 
 export class AddressController {
   private addressRepository: AddressRepository;
@@ -34,6 +35,20 @@ export class AddressController {
     const address = this.addressRepository.create(addressData);
     await validateOrReject(address);
     return this.addressRepository.save(address);
+  }
+
+  async update(request: Request, response: Response, next: NextFunction) {
+    const addressData: Address = request.body;
+    delete addressData?.id;
+    delete addressData?.user;
+
+    const address = this.addressRepository.create(addressData);
+
+    await validateOrReject(address);
+
+    const id = request.params.id;
+
+    return await this.addressRepository.save({ id, ...address });
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {

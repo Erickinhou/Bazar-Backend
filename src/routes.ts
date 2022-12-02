@@ -60,6 +60,12 @@ const addressRoutes = [
     action: "save",
   },
   {
+    method: "put",
+    route: "/address/:id",
+    controller: AddressController,
+    action: "update",
+  },
+  {
     method: "delete",
     route: "/address/:id",
     controller: AddressController,
