@@ -24,7 +24,7 @@ export class UserController {
     const userData: User = request.body;
 
     const user = this.userRepository.create(userData);
-    await validateOrReject(user);
+    await validateOrReject(user, { skipMissingProperties: true });
     return await this.userRepository.save({
       id,
       ...user,

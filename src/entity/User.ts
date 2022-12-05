@@ -1,11 +1,10 @@
-import { IsEmail, IsString, Length, MinLength } from "class-validator";
+import { IsEmail, IsString, IsUUID, Length, MinLength } from "class-validator";
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   UpdateDateColumn,
   CreateDateColumn,
-  Unique,
 } from "typeorm";
 
 @Entity()
@@ -33,6 +32,10 @@ export class User {
   @Length(11)
   @Column()
   cpf: string;
+
+  @IsUUID()
+  @Column({ nullable: true, unique: true })
+  defaultAddress: string;
 
   @UpdateDateColumn()
   updatedDate: Date;
