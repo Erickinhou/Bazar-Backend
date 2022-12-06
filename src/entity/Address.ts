@@ -7,6 +7,7 @@ import {
   CreateDateColumn,
   ManyToOne,
 } from "typeorm";
+import { Order } from "./Order";
 import { User } from "./User";
 
 @Entity()
@@ -47,4 +48,10 @@ export class Address {
     nullable: false,
   })
   user: User;
+
+  @ManyToOne(() => Order, (order) => order.address, {
+    cascade: true,
+    onDelete: "CASCADE",
+  })
+  order: Order;
 }

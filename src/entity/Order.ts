@@ -53,7 +53,6 @@ export class Order {
   @ManyToOne(() => User, { cascade: true, onDelete: "CASCADE" })
   user: User;
 
-  @OneToOne(() => Address, { cascade: true, onDelete: "CASCADE" })
-  @JoinColumn()
+  @OneToMany(() => Address, (address) => address.order)
   address: Address;
 }
