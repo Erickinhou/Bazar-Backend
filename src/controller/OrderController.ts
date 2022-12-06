@@ -27,13 +27,15 @@ export class OrderController {
       return await this.orderRepository.findWithFilter(filter);
     }
 
-    return this.orderRepository.find();
+    return await this.orderRepository.find();
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
-    return this.orderRepository.findOne({
+    const order = await this.orderRepository.findOne({
       where: { id: request.params.id },
     });
+    if (!order) throw new ExpressError("Não encontrado", 404);
+    return order;
   }
 
   async save(request: Request, response: Response, next: NextFunction) {
