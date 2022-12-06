@@ -7,7 +7,10 @@ import {
   ManyToOne,
   Column,
   OneToMany,
+  OneToOne,
+  JoinColumn,
 } from "typeorm";
+import { Address } from "./Address";
 import { OrderProduct } from "./OrderProduct";
 import { User } from "./User";
 
@@ -49,4 +52,8 @@ export class Order {
 
   @ManyToOne(() => User, { cascade: true, onDelete: "CASCADE" })
   user: User;
+
+  @OneToOne(() => Address, { cascade: true, onDelete: "CASCADE" })
+  @JoinColumn()
+  address: Address;
 }
